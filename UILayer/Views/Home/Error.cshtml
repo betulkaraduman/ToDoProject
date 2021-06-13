@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Areas/Admin/Views/Shared/_StandartLayout.cshtml";
+}
+
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <img src="~/img/Alarm-Error-icon.png" class="w-100 img-fluid" />
+    </div>
+    <div class="col-md-8 display-2 mt-4">
+        <p>
+            An error has occurred our technical team is working on it
+        </p>
+        <p>Error Path : @ViewBag.Path</p>
+        <p>
+            @ViewBag.Message
+        </p>
+    </div>
+</div>
+

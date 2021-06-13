@@ -1,0 +1,61 @@
+﻿@model UserWorksListDto
+@{
+    ViewData["Title"] = "AssignUserWorks";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="assigment" method="post">
+            <p>
+                This work assigned this user are you sure for it ?
+            </p>
+            <a asp-action="assigment" asp-route-id="@Model.work.Id" class="btn btn-warning">No not yet</a>
+            <input type="hidden" name="UserId" value="@Model.appUser.Id"/> 
+            <input type="hidden" name="WorkId" value="@Model.work.Id"/> 
+            <button type="submit" class="btn btn-warning">Yes Assing</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+        <div class="card card-border border-primary">
+            <div class="card-header">
+                <h5 class="text-center lead pt-2">Work Info</h5>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.work.Name</h5>
+                    <p class="card-text">@Model.work.Description</p>
+                    <p><b>@Model.work.urgency.Definition</b></p>
+                    <p>
+                        <span>@Model.work.CreateTime</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card mb-3 border border-primary">
+
+            <h5 class="form-text mt-2">Staff Information</h5>
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="~/img/@Model.appUser.Picture" alt="@Model.appUser.Name" class="w-50 img-fluid shadow" style="margin-left: 50px !important;margin-top: 15px !important;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.appUser.Name @Model.appUser.Surname</h5>
+                        <p class="card-text"><GetWork AppUserId="@Model.appUser.Id"></GetWork></p>
+                        <p class="card-text">
+                            <small class="text-muted">@Model.appUser.Email</small>
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

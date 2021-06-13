@@ -1,0 +1,38 @@
+﻿@model WorkAddDto
+@{
+    ViewData["Title"] = "AddWork";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<form asp-action="addWork" asp-controller="Work" method="post" class="w-50 mx-auto p-3">
+    <div class="form-group">
+        <label asp-for="@Model.Name">Name</label>
+        <input type="text" asp-for="@Model.Name" class="form-control" />
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description">Descrition</label>
+        <input type="text" asp-for="@Model.Description" class="form-control" />
+        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.UrgencyId">Select Urgency State</label>
+        <select asp-for="@Model.UrgencyId" asp-items="@ViewBag.Urgency" class="form-control">
+            <option hidden value="-1">Select</option>
+        </select>
+        <span asp-validation-for="@Model.UrgencyId" class="text-danger">
+        </span>
+
+    </div>
+    <div asp-validation-summary="ModelOnly"></div>
+    <button type="submit" class="btn btn-danger btn-sm my-2"><i class="fas fa-plus mr-2" style="margin-right:5px"></i>Add Work</button>
+
+</form>
+@section javascript{
+    <script src="~/lib/jqueryValidate/jquery.validate.min.js"></script>
+    <script src="~/lib/jqueryUnobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

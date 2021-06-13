@@ -1,0 +1,108 @@
+﻿@model List<WorkListAllDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/Shared/_memberLayout.cshtml";
+    int Index = 0;
+}
+
+@foreach (var work in Model)
+{
+    Index++;
+    <div class="card my-2">
+        <div class="card-header">
+            @work.Name
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><span class="text-danger mr-2">*</span><b> @work.urgency.Definition</b></h5>
+            <p class="card-text">@work.Description</p>
+
+            <p class="text-right">
+                @if (work.reports.Count > 0)
+                {
+                    <a class="btn btn-secondary btn-sm" data-toggle="collapse" href="#collapseExample-@Index" role="button" aria-expanded="false" aria-controls="collapseExample">Go to Reports <i class="fas fa-caret-down ml-2" style="margin-right:5px"></i><span>@work.reports.Count</span></a>
+                }
+                else
+                {
+                    <span class="lead"><i>You have write a report</i></span><br />
+                    <a asp-controller="Assigment" asp-action="WriteReport" asp-route-Id="@work.Id" class="btn btn-secondary btn-sm"><i class="fas fa-plus-circle ml-2" style="margin-right:5px"></i>Write Report</a>
+                }
+                <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#exampleModal" data-id="@work.Id">Finished</a>
+            </p>
+            <div class="collapse" id="collapseExample-@Index">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <th>Define</th>
+                        <th>Process</th>
+                    </tr>
+                    @foreach (var report in work.reports)
+                    {
+                        <tr>
+                            <td>@report.Definition</td>
+                            <td>@report.Detail</td>
+                            <td>
+                                <a asp-action="UpdateReport" asp-route-Id="@report.Id"><i class="far fa-edit ml-2" style="margin-right:5px"></i>Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                            </div>
+
+        </div>
+    </div>
+}
+
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+</button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center font-weight-bold lead">
+                Are you sure finish the task ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" id="saveTask">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section javascript{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#exampleModal").on("show.bs.modal", function (event) {
+                let clickElem = $(event.relatedTarget);
+                let data = clickElem.data("id");
+                /*alert(data);*/
+                $("#saveTask").click(function () {
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json;charset=utf-8",
+                        url: "./Assigment/FinishWork",
+                        data: { id: data },
+                        success: function () {
+                            alert("This work is finished");
+                            window.location.reload();
+                        },error: function (error) {
+                            alert(error.responseText);
+                        }
+
+                    })
+                })
+                
+            })
+        })
+    </script>
+
+
+
+}

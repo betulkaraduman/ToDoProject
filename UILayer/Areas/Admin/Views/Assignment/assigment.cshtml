@@ -1,0 +1,87 @@
+﻿@model WorkListDto
+@{
+    ViewData["Title"] = "assigment";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string searchWord = (string)ViewBag.Searched;
+
+}
+
+<div class="row mt-2">
+    <div class="col-md-12 mb-2">
+        @if (!string.IsNullOrWhiteSpace(searchWord))
+        {
+            <div class="border border-primary p-3 mb-2">
+                Result for <b>@searchWord</b>
+                <a asp-action="assigment" asp-route-id="@Model.Id" class="float-right">Cancel</a>
+            </div>
+        }
+        <form method="get" asp-action="assigment" class="float-right">
+            <input type="text" name="searchWord" class="form-control-sm border-top-0 border-left-0 border-right-0 border border-primary" />
+            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-border border-primary">
+            <div class="card-header">
+                <h5 class="text-center lead pt-2">Work Info</h5>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-text">@Model.Description</p>
+                    <p><b>@Model.urgency.Definition</b></p>
+                    <p>
+                        <span>@Model.CreateTime</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+
+        @foreach (var item in (List<AppUserListDto>)ViewBag.users)
+        {
+            <div class="card mb-3 border border-primary">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="~/img/@item.Picture" alt="@item.Name" class="w-50 img-fluid shadow" style="margin-left: 50px !important;margin-top: 15px !important;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name @item.Surname</h5>
+                            <p class="card-text"><GetWork AppUserId="@item.Id"></GetWork></p>
+                            <p class="card-text">
+                                <small class="text-muted">@item.Email</small>
+                                <a asp-action="AssignUserWorks" asp-route-UserId="@item.Id" asp-route-WorkId="@Model.Id" class="btn btn-secondary"><i class="fas fa-caret-right" style="margin-right:5px"></i>Assigning</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @if (!string.IsNullOrWhiteSpace(searchWord))
+                {
+                    @for (int i = 1; i <= ViewBag.SumPage; i++)
+                    {
+                        <li class="page-item" @(ViewBag.ActivePage == i ? "active" : "")>
+                            <a class="page-link" asp-action="assigment" asp-route-id="@Model.Id" asp-route-searchWord="@searchWord" asp-route-Page="i">@i</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    @for (int i = 1; i <= ViewBag.SumPage; i++)
+                    {
+                        <li class="page-item" @(ViewBag.ActivePage == i ? "active" : "")>
+                            <a class="page-link" asp-action="assigment" asp-route-id="@Model.Id" asp-route-Page="@i">@i</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

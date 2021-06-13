@@ -1,0 +1,56 @@
+﻿@model List<WorkListAllDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/Shared/_memberLayout.cshtml";
+    int Index = 0;
+}
+
+
+@foreach (var work in Model)
+{
+    Index++;
+    <div class="card my-2">
+        <div class="card-header">
+            @work.Name
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><span class="text-danger mr-2">*</span><b> @work.urgency.Definition</b></h5>
+            <p class="card-text">@work.Description</p>
+
+            <p class="text-right">
+                @if (work.reports.Count > 0)
+                {
+                    <a class="btn btn-secondary btn-sm" data-toggle="collapse" href="#collapseExample-@Index" role="button" aria-expanded="false" aria-controls="collapseExample">Go to Reports <i class="fas fa-caret-down ml-2" style="margin-right:5px"></i><span>@work.reports.Count</span></a>
+                }
+            </p>
+            <div class="collapse" id="collapseExample-@Index">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <th>Define</th>
+                    </tr>
+                    @foreach (var report in work.reports)
+                    {
+                        <tr>
+                            <td>@report.Definition</td>
+                            <td>@report.Detail</td>
+                           
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+<nav aria-label="Page navigation example" class="float-right">
+    <ul class="pagination">
+        @for (int i = 1; i <= @ViewBag.SumPage; i++)
+        {
+
+            <li class="page-item @(ViewBag.activePage==i?"active":"")"><a class="page-link" asp-action="Index" asp-route-activePage="@i">@i</a></li>
+        }
+    </ul>
+</nav>

@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/Shared/_memberLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 120rem;">
+            <div class="card-body">
+                @if (ViewBag.ReportCount > 0)
+                {
+                    <p class="card-text"> Report Count : @ViewBag.ReportCount</p>}
+                else
+                {
+                <p class="card-text">You have not a finished report</p>}
+                <p><a asp-action="Index" asp-controller="Assigment" class="btn btn-light">Detail</a></p>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 120rem;">
+            <div class="card-body">
+                @if (ViewBag.WorkCount > 0)
+                {
+                    <p class="card-text">Work Count : @ViewBag.WorkCount</p>
+                }
+                else
+                {<p class="card-text">You have not a finished work</p>
+                }
+                <p><a asp-action="Index" asp-controller="Work" class="btn btn-light">Detail</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 120rem;">
+            <div class="card-body">
+                @if (ViewBag.NotificationCount > 0)
+                {
+                    <p class="card-text">Notification Count : @ViewBag.NotificationCount</p>}
+                else
+                {
+                    <p class="card-text">You have not a notification</p>}
+                <p><a asp-action="Index" asp-controller="Notification" class="btn btn-light">Detail</a></p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 120rem;">
+            <div class="card-body">
+                @if (ViewBag.NotFinishedWorkCount > 0)
+                {
+                    <p class="card-text">Not Finished Work Count : @ViewBag.NotFinishedWorkCount</p>
+                }
+                else
+                {
+                    <p class="card-text">You have not a not finished work</p>
+                }
+                <p><a asp-action="Index" asp-controller="Assigment" class="btn btn-light">Detail</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+

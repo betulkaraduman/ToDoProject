@@ -1,0 +1,23 @@
+﻿
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    UserRegisterViewModel user = (UserRegisterViewModel)ViewBag.Cookie;
+}
+<partial name="Categories" />
+<NewTag></NewTag>
+<a asp-area="" asp-action="Index" asp-controller="home" asp-route-id="1"class="btn btn-secondary">Link 1</a>
+<p>
+    This is a Index View
+</p>
+<div class="my-4 ">
+    @user.Name
+</div>
+<div class="my-4 ">
+    @user.Surname
+</div>
+
+@await Component.InvokeAsync("Products")

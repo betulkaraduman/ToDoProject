@@ -1,0 +1,67 @@
+﻿@model List<WorkListAllDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.Count > 0)
+{
+    <a asp-action="AddWork" asp-controller="Work" class="btn btn-outline-dark btn-sm my-2"><i class="fas fa-plus mr-2" style="margin-right:5px"></i>Add New Work</a>
+    <table class="table table-bordered mx-auto m-4">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>CreateTime</th>
+            <th>Worker</th>
+            <th>Urgency</th>
+            <th>Report</th>
+            <th>Process</th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Description</td>
+        <td>@item.CreateTime.ToString("D")</td>
+        <td>
+            @{
+                if (item.appUser == null)
+                {
+
+                    <span>No Staff working</span>
+                }
+                else
+                {
+
+                    <span>@item.appUser.Name working</span>
+                }
+            }
+
+        </td>
+        <td>@item.urgency.Definition</td>
+        <td>@item.reports.Count</td>
+        <td>
+            @{
+                if (item.appUser == null)
+                {
+                    <a asp-action="assigment" asp-route-id="@item.Id" class="btn btn-info btn-sm"><i class="fas fa-caret-right" style="margin-right:5px"></i>Assign Staff</a>
+                }
+                else
+                {
+                    <a asp-action="details" asp-route-id="@item.Id" class="btn btn-info btn-sm"><i class="fas fa-info-circle" style="margin-right:5px"></i>Detail</a>
+                }
+            }
+
+        </td>
+    </tr>
+        }
+
+    </table>
+}
+else
+{<div class="text-center">
+        <p class="mx-auto lead mt-4">Urgency is not found</p>
+        <a asp-action="AddWork" asp-controller="Work" class="btn btn-secondary btn-sm my-2">Add New Work</a>
+    </div>
+}

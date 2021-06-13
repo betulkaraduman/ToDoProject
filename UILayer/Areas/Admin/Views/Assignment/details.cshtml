@@ -1,0 +1,34 @@
+﻿@model WorkListAllDto 
+@{
+    ViewData["Title"] = "details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model.reports.Count != 0)
+{
+    <a asp-action="getExcel" target="_blank" asp-route-id="@Model.Id" class="btn btn-outline-dark btn-sm mt-2"><i class="fas fa-file-excel" style="margin-right:5px"></i>Show Excel</a>
+    <a asp-action="getPdf" asp-route-id="@Model.Id" target="_blank" class="btn btn-outline-dark  btn-sm mt-2"><i class="fas fa-file-pdf" style="margin-right:5px"></i>Show PDF</a>
+    <table class="table table-bordered mx-auto mt-2 text-center">
+        <tr>
+            <th colspan="2" style="text-align:center;"> @Model.appUser.Name @Model.appUser.Surname reports</th>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <th>Detail</th>
+        </tr>
+
+        @foreach (var item in Model.reports)
+        {
+            <tr>
+                <td>@item.Definition</td>
+                <td>@item.Detail</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="border border-dark mt-2 text-center">
+        @Model.appUser.Name @Model.appUser.Surname is working this work.Has not a report yet
+    </div>
+}

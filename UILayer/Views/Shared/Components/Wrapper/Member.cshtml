@@ -1,0 +1,31 @@
+﻿@model AppUserListDto
+
+@{
+    string active = string.Empty;
+    if (TempData["Active"] != null)
+    {
+        active = TempData["Active"].ToString();
+    }
+}
+<div class="border-right border border-light border-left-0 border-bottom-0 border-right-0 border-top-0 " id="sidebar-wrapper">
+    <div class="sidebar-heading">
+        <img src="~/img/@Model.Picture" alt="@Model.Name" style="height:5rem!important" class="w-50 img-thumbnail" />
+
+    </div>
+    <div class="list-group list-group-flush">
+        <a asp-action="Index" asp-controller="Home" class="list-group-item list-group-item-action @(active=="home"?"active":"")"><i class="fas fa-home mr-2" style="margin-right: 5px;"></i>Home</a>
+
+        <a asp-action="Index" asp-controller="assigment" class="list-group-item list-group-item-action  @(active=="assignment"?"active":"")"><i class="fas fa-arrow-alt-circle-down mr-2" style="margin-right: 5px;"></i> Not Finished Businesses</a>
+ 
+        <a asp-action="Index" asp-controller="Work" class="list-group-item list-group-item-action @(active=="work"?"active":"")"><i class="fas fa-arrow-alt-circle-up mr-2" style="margin-right: 5px;"></i>Finished Businesses</a>
+        <a asp-action="Index" asp-controller="Notification" class="list-group-item list-group-item-action @(active=="notification"?"active":"")">
+            <i class="fas fa-chart-pie mr-2" style="margin-right: 5px;"></i>
+            @if (ViewBag.notification > 0)
+            {
+                <sub style="bottom:0.025rem!important;color:red;padding-left:4px;padding-right:4px; border-radius :50%;  background-color:violet"><b>@ViewBag.notification</b></sub>
+            }Notification
+        </a>
+        <a asp-action="Index" asp-controller="User" class="list-group-item list-group-item-action  @(active=="user"?"active":"")"><i class="fas fa-chart-area mr-2" style="margin-right: 5px;"></i>MyProfile</a>
+        <a asp-area="" asp-action="Logout" asp-controller="Home" class="list-group-item list-group-item-action"><i class="fas fa-sign-out-alt mr-2" style="margin-right: 5px;"></i>Logout</a>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootswatch/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/lib/template-css/simple-sidebar.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container"> 
+        @RenderBody()
+    </div>
+    @RenderSection("javascript", false);
+</body>
+</html>
